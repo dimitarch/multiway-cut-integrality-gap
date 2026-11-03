@@ -1,0 +1,35 @@
+[project]
+name = "multiway-flow-instances"
+version = "0.1.0"
+description = "Search, rounding and exact verification of the flow instance behind the Multiway Cut integrality gap 1.2325"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.13",
+    "highspy>=1.15.1",
+]
+
+[project.optional-dependencies]
+hipo = ["highspy-extras>=1.15.1"]  # the parallel interior point solver HiPO of HiGHS (BLAS and METIS)
+gurobi = ["gurobipy>=12"]          # the Gurobi backend; a license is needed beyond 2000 rows and columns
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.8"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 150
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E731", "E741"]  # lambda assignments and the names l, I are used where the paper uses them
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+known-first-party = ["affine", "geometry", "indices", "lp", "reconstruction", "rounding", "search", "table", "verify"]
