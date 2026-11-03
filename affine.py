@@ -2,8 +2,9 @@
 
 This ties Section 6 to Section 7: the affine flows, constant weights and terminal densities
 of lem:explicit are quadratics on every cell, so they have a table, and the exact checks of
-Section 7.5 must return the closed forms eq:explicitvalues for B, R and L.  The table of
-lem:explicit for q = 10, T = 3/5 verifies to the value of thm:explicit.
+Section 7.5 must return the closed forms eq:explicitvalues for B, R and L.  For T = 3/5 the
+tables verify up to q = 8; from q = 9 on the integers are too large for the 64-bit checks, so
+the value of thm:explicit (q = 10) is checked through the closed forms only.
 
     python affine.py q T n r_0 table.npz      write the table, then verify it with verify.py
 """
@@ -24,7 +25,7 @@ def scale(q, r, T):
     """M_r a_r: the scale a_r of eq:explicitscales, multiplied by the number M_r = q! / (q - r)! of copies of O_r.
 
     The data of Section 7 are stored unscaled on O_r and divided by M_r on every copy
-    (Section 7.2), so the table holds M_r times the data of lem:explicit.
+    (Section 7.1), so the table holds M_r times the data of lem:explicit.
     """
     a_r = (r * T - 1) * math.factorial(r - 2) * math.factorial(q - r) / (T ** (r - 2) * math.factorial(q))
     return a_r * Fraction(math.factorial(q), math.factorial(q - r))

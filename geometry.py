@@ -1,4 +1,4 @@
-"""The subdivision of the ordered regions O_r into simplex cells (Section 7.3) and the incidence
+"""The subdivision of the ordered regions O_r into simplex cells (Section 7.2) and the incidence
 data that Section 7.4 reads off it: the facets of every cell, their orientation s_{P, f}, the
 opposite vertices o_{P, f}, the volumes V_P, and the boundary kind of every facet of O_r.
 
@@ -21,7 +21,7 @@ COORDINATE = "coordinate"  # the facet lies on x_{r - 1} = 0, the copy of O_{r -
 
 
 def region_vertices(r, T):
-    """The vertices u_2, ..., u_r and v_2, ..., v_r of O_r (Section 7.3), as dicts indexed by j."""
+    """The vertices u_2, ..., u_r and v_2, ..., v_r of O_r (Section 7.2), as dicts indexed by j."""
     u = {j: tuple(Fraction(1, j) if i < j else Fraction(0) for i in range(r)) for j in range(2, r + 1)}
     v = {j: (T,) + tuple((1 - T) / (j - 1) if i < j else Fraction(0) for i in range(1, r)) for j in range(2, r + 1)}
     return u, v
@@ -34,7 +34,7 @@ def initial_simplices(r, T):
 
 
 def kuhn_paths(n, d):
-    """The lattice paths z, z + e_sigma(1), ..., z + (1, ..., 1) of Section 7.3 whose vectors are all weakly increasing."""
+    """The lattice paths z, z + e_sigma(1), ..., z + (1, ..., 1) of Section 7.2 whose vectors are all weakly increasing."""
     paths = []
     for z in itertools.combinations_with_replacement(range(n), d):
         for sigma in itertools.permutations(range(d)):
@@ -72,7 +72,7 @@ def subdivision_cells(r, T, n, r_0, child=None):
 
     For r <= r_0 every initial simplex is subdivided into n^(r - 1) cells.  For r > r_0 every cell
     of the child region O_{r - 1}, with a zero coordinate appended, is joined to v_r, and every
-    facet of the child subdivision on x_0 = x_1 is joined to u_r and v_r (Section 7.3).
+    facet of the child subdivision on x_0 = x_1 is joined to u_r and v_r (Section 7.2).
     """
     if r <= r_0:
         return [cell for simplex in initial_simplices(r, T) for cell in kuhn_subdivision(simplex, n)]
@@ -120,7 +120,7 @@ class Cell:
 
 
 class Region:
-    """The subdivision of one ordered region O_r, indexed as stored in a table (Appendix D).
+    """The subdivision of one ordered region O_r, indexed as stored in a table (README.md, table format).
 
     points   the vertices, exact rationals, and the integers p[s, j] with points[s][j] = p[s, j] / Q
     cells    sorted vertex-index tuples, in table order
@@ -158,7 +158,7 @@ class Region:
         self._check_interior_facets()
         self._check_measures()
 
-        # Coefficient index within facet f of a pair of its vertices (Section 7.3, pairs st of cell vertices).
+        # Coefficient index within facet f of a pair of its vertices (Section 7.2, pairs st of cell vertices).
         self.facet_pair_index = [{(facet[s], facet[t]): k for k, (s, t) in enumerate(coefficient_pairs(self.d))} for facet in self.facets]
         # The coordinate facets by their point sets, with the zero coordinate removed, for matching with the child's cells.
         self.coordinate_facets = {
@@ -167,7 +167,7 @@ class Region:
 
     @classmethod
     def canonical(cls, r, T, n, r_0, child=None):
-        """Build the subdivision of Section 7.3 with the indexing a table receives when it is created here."""
+        """Build the subdivision of Section 7.2 with the indexing a table receives when it is created here."""
         points, index, cells = [], {}, []
         for cell in subdivision_cells(r, T, n, r_0, child):
             for point in sorted(cell):

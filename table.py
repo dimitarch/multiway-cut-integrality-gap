@@ -1,4 +1,4 @@
-"""The integer table of a flow instance (Section 7.4) and its file format (Appendix D).
+"""The integer table of a flow instance (Section 7.4) and its file format (README.md).
 
 A table holds, for every r = 2, ..., q, the subdivision of O_r and three integer arrays:
 
@@ -22,7 +22,7 @@ from indices import coefficient_pairs, coordinate_pairs
 
 @dataclass
 class RegionTable:
-    """The data of a flow instance on one ordered region O_r, unscaled (Section 7.2)."""
+    """The data of a flow instance on one ordered region O_r, unscaled (Section 7.1)."""
 
     region: Region
     H: np.ndarray
@@ -63,7 +63,7 @@ class FlowTable:
     def load(cls, path):
         """Read a table and rebuild its geometry from the stored points, cells and facets.
 
-        The stored subdivision of every O_r is compared with the construction of Section 7.3,
+        The stored subdivision of every O_r is compared with the construction of Section 7.2,
         so that the only data a table contributes are its indexing and the integers H, Z, W.
         """
         with np.load(path, allow_pickle=False) as archive:
@@ -86,7 +86,7 @@ class FlowTable:
             points = [tuple(Fraction(int(x), Q) for x in row) for row in data[f"points_{r}"]]
             region = Region(r, T, points, [tuple(map(int, row)) for row in data[f"cells_{r}"]], [tuple(map(int, row)) for row in data[f"facets_{r}"]])
             assert region.Q == Q, f"Q_{r} is not the least common denominator of the points"
-            assert region.cell_point_sets() == canonical[r].cell_point_sets(), f"the stored cells of O_{r} are not the subdivision of Section 7.3"
+            assert region.cell_point_sets() == canonical[r].cell_point_sets(), f"the stored cells of O_{r} are not the subdivision of Section 7.2"
             if r >= 3:
                 region.check_child(regions[r - 1].region)
             regions[r] = RegionTable(region, data[f"H_{r}"], data[f"Z_{r}"], data[f"W_{r}"])

@@ -1,4 +1,4 @@
-"""The subdivision of Section 7.3: cell counts, the facet restriction, the boundary facets."""
+"""The subdivision of Section 7.2: cell counts, the facet restriction, the boundary facets."""
 
 from fractions import Fraction
 
@@ -12,7 +12,7 @@ T = Fraction(249, 400)
 def test_cell_counts_of_the_recorded_configuration():
     regions = build_regions(11, T, 3, 5)
     counts = [len(regions[r].cells) for r in range(2, 12)]
-    assert counts == [3, 18, 81, 324, 351, 378, 405, 432, 459, 486]  # the table of Section 8
+    assert counts == [3, 18, 81, 324, 351, 378, 405, 432, 459, 486]  # the table of Section 7.6
     assert len(regions[11].facets) == 4347 and len(regions[11].points) == 92
 
 

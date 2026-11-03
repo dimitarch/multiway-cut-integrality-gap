@@ -1,4 +1,4 @@
-"""From a floating solution of search.py to an integer table (the last paragraph of Section 7.1).
+"""From a floating solution of search.py to an integer table (Section 7.6, "How the flow instance was found").
 
 round   The coefficients are rounded to the common denominator D, the boundary rules are imposed
         exactly, the weights are rounded upward, and the weights of a coefficient are then raised

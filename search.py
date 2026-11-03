@@ -1,9 +1,9 @@
-"""The linear program of Section 7.1 over the family of Section 7.3, solved with HiGHS or Gurobi.
+"""The linear program of Section 7.3 over the family of Section 7.2, solved with HiGHS or Gurobi.
 
-The unknowns are the unscaled data of every ordered region O_r (Section 7.2) in the
+The unknowns are the unscaled data of every ordered region O_r (Section 7.1) in the
 representation of Section 7.4: the normal coefficients h_{i, f, st}, the interior coefficients
 z_{i, P, st} and the integrated weights V_P w_{ij, P, st}.  The program is the specialization
-described in Section 7.1: the allowance is zero, the total terminal weight is normalized to
+described in Section 7.6: the allowance is zero, the total terminal weight is normalized to
 B = 1, and L is minimized, so that the floating value of the instance is 1 / L.  With
 --allowance the allowance coefficients e_{P, st} >= 0 are unknowns too, the normalization is
 B - R = 1, and L is minimized, which is the general program up to scaling.
@@ -14,8 +14,8 @@ Every region is of one of three types.
                       the subset inequality eq:capmaxmin at every coefficient
     common-quadratic  one quadratic flow phi shared by all labels plus the constant offsets
                       A (e_i - 1/r), with every weight A / (r - 1) and capacity imposed through
-                      phi_j <= A / r at every coefficient and coordinate (Section 7.1, "In higher
-                      dimensions it further restricted the flows")
+                      phi_j <= A / r at every coefficient and coordinate (Section 7.6, "How the
+                      flow instance was found")
     common-affine     the same with phi affine, given by its normal coefficients at the facet vertices
 
 A floating solution is written as an .npz file; rounding.py turns it into an integer table.

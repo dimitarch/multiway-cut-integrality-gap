@@ -1,4 +1,4 @@
-"""Index conventions shared by every module (Section 7.3, "Four kinds of index", and Appendix D).
+"""Index conventions shared by every module (Sections 7.2, 7.4 and 7.5, and the table format in README.md).
 
 A quadratic on a simplex with m ordered vertices is stored in the Bernstein basis
 eq:quadraticbasis by its coefficients at the pairs st, s <= t, of vertex positions.
